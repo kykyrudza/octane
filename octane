@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+
+define("DATABASE_PATH", str_replace(DIRECTORY_SEPARATOR, '/', __DIR__ . '/database'));
+
+require __DIR__ . '/vendor/autoload.php';
+
+$app = new Kernel\Console\App();
+$app->run();

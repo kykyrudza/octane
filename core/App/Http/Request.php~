@@ -1,0 +1,57 @@
+<?php
+
+namespace Kernel\Application\Http;
+
+class Request
+{
+    public function __construct(
+        private readonly array $getData,
+        private readonly array $postParam,
+        private readonly array $files,
+        private readonly array $server,
+        private readonly array $cookies,
+    ) {}
+
+    public static function createFromGlobals(): Request
+    {
+        return self::globals();
+    }
+
+    public function getRequestInfo(): array
+    {
+        return [
+            'uri' => $this->uri(),
+            'method' => $this->method(),
+        ];
+    }
+
+    public function uri()
+    {
+        return $this->server['REQUEST_URI'];
+    }
+
+    public function method()
+    {
+        return $this->server['REQUEST_METHOD'];
+    }
+
+    public function input(?string $key = null)
+    {
+        if ($key) {
+            return $this->postParam[$key] ?? $this->getData[$key] ?? null;
+        }
+
+        return $this->postParam ?? $this->getData ?? [];
+    }
+
+    private static function globals(): Request
+    {
+        return new self(
+            $_GET,
+            $_POST,
+            $_FILES,
+            $_SERVER,
+            $_COOKIE
+        );
+    }
+}
