@@ -38,12 +38,8 @@ if (! function_exists('response')) {
 }
 
 if (! function_exists('view')) {
-    function view(string $view, array|object $data = []): View
+    function view(string $view, mixed $data = []): View
     {
-        if (empty($view)) {
-            throw new \Exception('View name must be provided');
-        }
-
         return (new View)->render($view, $data);
     }
 }
@@ -109,11 +105,20 @@ if (! function_exists('config')) {
         return $app->get('config')->get($key) ?? $default;
     }
 }
+
 if (! function_exists('session')) {
     function session(): Session
     {
         global $app;
 
         return $app->get('session');
+    }
+}
+
+if (! function_exists('app')) {
+    function app(): Application
+    {
+        global $app;
+        return $app;
     }
 }

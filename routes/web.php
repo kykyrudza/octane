@@ -14,7 +14,7 @@ return [
         ])
         ->name('home'),
 
-    Route::get('/test', [HomeController::class, 'test'])->name('test'),
-    Route::post('/test/{name}', [HomeController::class, 'store'])->name('store'),
-    Route::get('/123/{name}', [HomeController::class, 'test'])->name('123'),
+
+    Route::get('/test-validation', [HomeController::class, 'testValidation'])->name('test-validation'),
+    Route::post('/test-validation', [HomeController::class, 'storeValidation'])->name('test.store'),
 ];
